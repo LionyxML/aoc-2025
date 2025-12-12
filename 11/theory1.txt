@@ -1,0 +1,86 @@
+This problem is **exactly** a *directed acyclic graph* (DAG) traversal problem.
+
+The correct data structure is:
+
+# ✅ **A Directed Graph (Adjacency List Representation)**
+
+Each device is a node.
+Each `device: a b c` line describes outgoing edges from that node to others.
+
+Example transformed:
+
+```text
+aaa → [you, hhh]
+you → [bbb, ccc]
+bbb → [ddd, eee]
+ccc → [ddd, eee, fff]
+ddd → [ggg]
+eee → [out]
+fff → [out]
+ggg → [out]
+hhh → [ccc, fff, iii]
+iii → [out]
+```
+
+This is a **directed graph**, and since “data can’t flow backwards,” we assume **no cycles**, so it's a **DAG**.
+
+---
+
+# ⚙️ How to solve
+
+Use:
+
+### **Depth-First Search (DFS)**
+
+to enumerate all possible paths from `"you"` to `"out"`.
+
+The adjacency list gives you O(1) access to children, DFS gives you all root→target paths.
+
+Pseudo-code:
+
+```
+graph = HashMap<String, Vec<String>>
+paths = []
+
+fn dfs(node, current_path):
+	if node == "out":
+		paths.push(current_path)
+		return
+
+	for next in graph[node]:
+		dfs(next, current_path + [next])
+```
+
+Then call:
+
+```
+dfs("you", ["you"])
+```
+
+---
+
+# 🔍 Why an adjacency list?
+
+Because:
+
+* You have up to N devices with multiple outputs.
+* You often need quick access to "where can this go".
+* An adjacency list is efficient in time and memory.
+
+An adjacency matrix is pointless (sparse graph).
+
+A tree is incorrect (nodes can have multiple parents).
+
+---
+
+# 🧠 In summary
+
+To solve the puzzle you need:
+
+### **Data structure:**
+
+➡️ **Directed Graph using adjacency list**
+
+### **Algorithm:**
+
+➡️ **DFS to enumerate all paths from `"you"` → `"out"`**

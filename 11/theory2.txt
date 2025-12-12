@@ -1,0 +1,114 @@
+Here is the clean conceptual answer:
+
+---
+
+# ✅ Part 2 — Best Algorithm + Data Structure
+
+You still have a **directed acyclic graph (DAG)**.
+
+But now the requirement is:
+
+* Find **all paths from `svr` → `out`**
+* **AND** the path must include *both* `dac` **and** `fft`
+* In **any order**
+
+This turns into a *constrained path enumeration* problem on a DAG.
+
+---
+
+# 📌 Data Structure (Best)
+
+### **➡️ Same as Part 1: adjacency list (HashMap<String, Vec<String>>)**
+
+Why:
+
+* Sparse graph → adjacency list is optimal.
+* O(1) access to children.
+* DFS recursion fits perfectly with path tracing.
+
+There's no better structure here (not trees, not matrices).
+You are exploring variable-length directed paths → adjacency list is the correct representation.
+
+---
+
+# 📌 Algorithm (Best)
+
+### **➡️ Depth-First Search (DFS) with state tracking**
+
+But with additional constraints.
+
+During DFS, you maintain:
+
+```
+visited_fft: bool
+visited_dac: bool
+```
+
+When you reach `"out"`, count the path **only if both are true**.
+
+This can be done in multiple ways:
+
+---
+
+# 🎯 **Best approach (simple + efficient)**
+
+### DFS with "visited special nodes" passed as parameters.
+
+You do *not* need dynamic programming because:
+
+* You must enumerate paths anyway.
+* DP cannot prune based on “visited dac & fft” unless you track that state too, which complicates it unnecessarily.
+
+Pseudo-Rust logic:
+
+```
+fn dfs(node, visited_dac, visited_fft):
+	if node == "dac":
+		visited_dac = true
+	if node == "fft":
+		visited_fft = true
+
+	if node == "out":
+		if visited_dac && visited_fft:
+			count += 1
+		return
+
+	for child in graph[node]:
+		dfs(child, visited_dac, visited_fft)
+```
+
+This is optimal:
+
+* Graph is a DAG → no cycles → no need for a "visited set"
+* State is tiny (2 booleans)
+* Memory extremely small
+* Fully correct for constrained path counting
+
+---
+
+# 🧠 Why not DP?
+
+You *can* do memoization like:
+
+```
+dp[node][visited_dac][visited_fft] = number of valid endings
+```
+
+But this only helps if:
+
+* Graph is large
+* Many sub-paths repeat
+
+AoC graphs rarely have huge branching repeatedly, and they *want* you to enumerate paths, so DFS is the intended clean solution.
+
+---
+
+# 🥇 Final Answer
+
+### **Best data structure:**
+
+➡️ *Directed adjacency list* (`HashMap<String, Vec<String>>`)
+
+### **Best algorithm:**
+
+➡️ *Depth-first search (DFS) with two boolean flags: visited_dac, visited_fft*
