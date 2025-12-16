@@ -2,7 +2,7 @@
 #+author: Rahul M. Juliato
 #+options: toc:t num:nil
 
-* Advent of Code 2025
+* Intro
 
 This repository contains my personal solutions for the
 [[https://adventofcode.com/2025][Advent of Code 2025]] challenges.
