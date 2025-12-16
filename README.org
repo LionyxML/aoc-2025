@@ -1,0 +1,53 @@
+#+title: Advent of Code 2025 - Solutions
+#+author: Rahul M. Juliato
+#+options: toc:t num:nil
+
+* Advent of Code 2025
+
+This repository contains my personal solutions for the
+[[https://adventofcode.com/2025][Advent of Code 2025]] challenges.
+
+Advent of Code is an annual programming event created by Eric Wastl,
+featuring a new set of algorithmic puzzles released every day from
+December 1st to December 25th.
+
+The goal of this repository is to:
+- Practice problem solving and algorithmic thinking
+- Experiment with different languages, styles, and approaches
+- Keep a public and reproducible record of my solutions
+- Have fun solving puzzles 🎄✨
+
+* Structure
+
+Each day has its own directory, usually named after the day number:
+
+#+begin_example
+01/
+02/
+03/
+...
+#+end_example
+
+Inside each directory you may find:
+
+- Source code for Part 1 and Part 2
+- Notes or explanations (when relevant)
+
+The exact structure may vary depending on the language or approach
+used.
+
+* Languages & Tools
+
+The solutions here presented were originally made in =Rust= using =Emacs=.
+
+There is no attempt to optimize for performance unless it is part of
+the puzzle.  Clarity and experimentation are preferred over
+micro-optimizations.
+
+* Disclaimer
+
+These solutions are written for learning and personal enjoyment.
+They may not represent the most optimal or shortest possible answers.
+
+If you are currently participating in Advent of Code, consider solving
+the puzzles yourself before reading the solutions 🙂.
